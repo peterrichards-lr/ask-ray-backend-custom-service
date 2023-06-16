@@ -1,0 +1,39 @@
+{
+  "kind": "Deployment",
+  "id": "askray",
+  "deploy": true,
+  "memory": 512,
+  "cpu": 1,
+  "loadBalancer": {
+    "targetPort": 4000,
+    "cdn": false
+  },
+  "readinessProbe": {
+    "httpGet": {
+      "path": "/health",
+      "port": 4000
+    },
+    "initialDelaySeconds": 30,
+    "periodSeconds": 10,
+    "timeoutSeconds": 5,
+    "successThreshold": 2
+  },
+  "livenessProbe": {
+    "httpGet": {
+      "path": "/health",
+      "port": 4000
+    },
+    "initialDelaySeconds": 120,
+    "timeoutSeconds": 60,
+    "failureThreshold": 5,
+    "periodSeconds": 60
+  },
+  "environments": {
+    "prd": {
+      "env": {
+        "LIFERAY_OAUTH2_CLIENT_ERC": "@liferay-oauth2-client-erc",
+        "GOOGLE_SERVICE_ACCOUNT": "@ask-ray-google-service-account"
+      }
+    }
+  }
+}
