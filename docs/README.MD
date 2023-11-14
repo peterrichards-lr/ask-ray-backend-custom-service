@@ -21,7 +21,7 @@ Field | Value
 --- | ---
 Name | This value should be meaningful but is not used
 Website URL | This should be left blank
-Callback URIs | This needs to be the OAuth 2 redirect endpoint for your Liferay instance. https://<liferay host>/o/oauth2/redirect
+Callback URIs | This needs to be the OAuth 2 redirect endpoint for your Liferay instance. https://`<liferay host>`/o/oauth2/redirect
 Privacy Policy URL | This should be left blank
 Client Authentication Method | None
 JSON Web Key Set | This should be left blank
