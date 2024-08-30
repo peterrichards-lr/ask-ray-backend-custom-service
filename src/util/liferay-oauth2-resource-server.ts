@@ -20,8 +20,8 @@ import dotenv, { DotenvConfigOutput } from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import { logger } from './logger.js';
 
-const myEnv: DotenvConfigOutput = dotenv.config();
-dotenvExpand.expand(myEnv);
+const config: DotenvConfigOutput = dotenv.config();
+dotenvExpand.expand(config);
 
 const domains = process.env.CORS_ALLOW_DOMAINS;
 if (!domains) {
@@ -64,7 +64,7 @@ const corsOptions = {
   },
 };
 
-export async function corsWithActuator(req: any, res: any, next: any) {
+export async function corsWitReady(req: any, res: any, next: any) {
   if (req.path === readyPath) {
     return next();
   }
@@ -121,9 +121,10 @@ export async function liferayJWT(req: any, res: any, next: any) {
       const { client_id } = await applicationResponse.json();
 
       if (decoded.client_id === client_id) {
+        req.jwt = decoded;
         next();
       } else {
-        logger.log(
+        logger.info(
           'JWT token client_id value does not match expected client_id value.'
         );
 

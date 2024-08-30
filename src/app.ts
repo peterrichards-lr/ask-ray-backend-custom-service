@@ -6,7 +6,7 @@ import actuator from 'express-actuator';
 
 import { logger } from './util/logger';
 import {
-  corsWithActuator,
+  corsWitReady,
   liferayJWT,
 } from './util/liferay-oauth2-resource-server';
 
@@ -19,7 +19,7 @@ const app: Express = express();
 
 app.use(actuator());
 app.use(express.json());
-app.use(corsWithActuator);
+app.use(corsWitReady);
 app.use(liferayJWT);
 app.use(routes);
 
@@ -28,5 +28,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(serverPort, () =>
-  logger.log(`Server running on http://localhost:${serverPort}`)
+  logger.debug(`Server running on http://localhost:${serverPort}`)
 );
